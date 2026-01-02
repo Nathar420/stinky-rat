@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhs788abck0v4"]
+
+[ext_resource type="Script" uid="uid://dtdoqa5hud436" path="res://enemies/test_enemy.gd" id="1_h17bh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mkyue"]
+radius = 22.203604
+
+[sub_resource type="Gradient" id="Gradient_fpxyv"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lkcdx"]
+gradient = SubResource("Gradient_fpxyv")
+fill_to = Vector2(0.71495324, 0.26635513)
+
+[node name="TestEnemy" type="CharacterBody2D"]
+script = ExtResource("1_h17bh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mkyue")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, 2)
+scale = Vector2(0.46875, 0.484375)
+texture = SubResource("GradientTexture2D_lkcdx")
