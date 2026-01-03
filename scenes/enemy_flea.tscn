@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dhs788abck0v4"]
 
-[ext_resource type="Script" uid="uid://dtdoqa5hud436" path="res://enemies/test_enemy.gd" id="1_h17bh"]
+[ext_resource type="Script" uid="uid://dtdoqa5hud436" path="res://enemies/enemy_flea.gd" id="1_h17bh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mkyue"]
 radius = 22.203604
@@ -11,7 +11,7 @@ radius = 22.203604
 gradient = SubResource("Gradient_fpxyv")
 fill_to = Vector2(0.71495324, 0.26635513)
 
-[node name="TestEnemy" type="CharacterBody2D"]
+[node name="EnemyFlea" type="CharacterBody2D"]
 script = ExtResource("1_h17bh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

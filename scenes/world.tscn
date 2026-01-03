@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bawmdb64ufyqn"]
+[gd_scene load_steps=4 format=3 uid="uid://bawmdb64ufyqn"]
 
 [ext_resource type="PackedScene" uid="uid://b62lvo1x4606q" path="res://player/player.tscn" id="1_nnsk1"]
-[ext_resource type="PackedScene" uid="uid://dhs788abck0v4" path="res://scenes/test_enemy.tscn" id="2_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://dhs788abck0v4" path="res://scenes/enemy_flea.tscn" id="2_rwgxs"]
+[ext_resource type="Script" uid="uid://ddsbocwsguvvu" path="res://enemies/enemy_spawner.gd" id="3_4wyf3"]
 
 [node name="World" type="Node2D"]
 
@@ -9,5 +10,9 @@
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
-[node name="TestEnemy" parent="." instance=ExtResource("2_rwgxs")]
+[node name="EnemyFlea" parent="." instance=ExtResource("2_rwgxs")]
 position = Vector2(246, 71)
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("3_4wyf3")
+enemy_scene = ExtResource("2_rwgxs")
