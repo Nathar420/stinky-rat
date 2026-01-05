@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cb37fiuof4ypf"]
 
 [ext_resource type="Script" uid="uid://cntl4cs7nxkc5" path="res://ui/level_up_ui.gd" id="1_40crd"]
-[ext_resource type="PackedScene" uid="uid://b4ali57kc1cl4" path="res://upgrade_button.tscn" id="2_gho4r"]
+[ext_resource type="PackedScene" uid="uid://b4ali57kc1cl4" path="res://ui/upgrade_button.tscn" id="2_gho4r"]
 [ext_resource type="FontFile" uid="uid://dmebi7ig6ljst" path="res://poco/Poco.ttf" id="3_v7dmh"]
 
 [node name="LevelUpUi" type="CanvasLayer"]

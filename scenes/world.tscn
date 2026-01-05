@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bhu4vg68yg1tr" path="res://scenes/floating_score.tscn" id="7_i7141"]
 [ext_resource type="PackedScene" uid="uid://d3m3qpbtb01bc" path="res://scenes/game_ui.tscn" id="8_4mrxx"]
 [ext_resource type="Script" uid="uid://dgq4x58djugab" path="res://resources/items/item_database.gd" id="9_7r4gi"]
-[ext_resource type="PackedScene" uid="uid://cb37fiuof4ypf" path="res://level_up_ui.tscn" id="10_w7kh3"]
+[ext_resource type="PackedScene" uid="uid://cb37fiuof4ypf" path="res://ui/level_up_ui.tscn" id="10_w7kh3"]
 
 [node name="World" type="Node2D"]
 

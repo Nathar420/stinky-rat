@@ -24,7 +24,9 @@ func _ready() -> void:
 	var basic_gun = $AbilityManager/BasicGun
 	ability_manager.register_ability("basic_gun", basic_gun)
 	ability_manager.unlock_ability("basic_gun")
-	
+	# Register ricochet (but don't unlock yet)
+	var ricochet_gun = $AbilityManager/RicochetGun
+	ability_manager.register_ability("ricochet", ricochet_gun)
 	# Connect to stats signals
 	stats.stat_changed.connect(_on_stat_changed)
 	stats.level_up.connect(_on_level_up)
@@ -107,5 +109,10 @@ func _on_upgrade_chosen(item: ItemData) -> void:
 			stats.increase_movement_speed(0.25)
 		"max_health":
 			stats.increase_max_health(20)
-		"ricochet", "explosion", "sword", "spoon":
+		"ricochet":
+			if ability_manager.has_ability("ricochet"):
+				ability_manager.level_up_ability("ricochet")
+			else:
+				ability_manager.unlock_ability("ricochet")
+		"explosion", "sword", "spoon":
 			print("Weapon upgrade: ", item.id, " - needs ability implementation")
