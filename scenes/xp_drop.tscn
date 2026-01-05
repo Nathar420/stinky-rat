@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://i2qg3t6oe36a"]
+
+[ext_resource type="Script" uid="uid://bopk35edc8s8y" path="res://pickups/xp_drop.gd" id="1_v6faq"]
+[ext_resource type="Texture2D" uid="uid://c6p65j6i0ekdg" path="res://pickups/xp_drop2.png" id="2_7rfnp"]
+[ext_resource type="Texture2D" uid="uid://b4d56aqh2jfqm" path="res://pickups/xp_drop3.png" id="3_pjmw0"]
+[ext_resource type="Texture2D" uid="uid://dnufjr86ga6e7" path="res://pickups/xp_drop1.png" id="4_v6faq"]
+[ext_resource type="Texture2D" uid="uid://dp18f0lcdp70w" path="res://pickups/xp_drop4.png" id="5_6ou12"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fp48k"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hks1c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7rfnp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pjmw0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_v6faq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_6ou12")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="XPDrop" type="Area2D"]
+script = ExtResource("1_v6faq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fp48k")
+
+[node name="xp_animation" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.99999917, 1.7499995)
+scale = Vector2(0.43749997, 0.45312503)
+sprite_frames = SubResource("SpriteFrames_hks1c")
+frame_progress = 0.6843709

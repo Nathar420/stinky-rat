@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsvf86ubeo8rl"]
+
+[ext_resource type="Script" uid="uid://btdg5wx3lrgd5" path="res://pickups/health_pickup.gd" id="1_3p6mu"]
+[ext_resource type="Texture2D" uid="uid://4jgm8eyj43vb" path="res://pickups/cheese_health.png" id="2_i662h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ubx2t"]
+
+[node name="HealthPickup" type="Area2D"]
+script = ExtResource("1_3p6mu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ubx2t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_i662h")

@@ -28,6 +28,8 @@ func _ready() -> void:
 
 func gain_xp(amount: int) -> void:
 	current_xp += amount
+	stat_changed.emit("xp", current_xp - amount, current_xp)
+	
 	while current_xp >= xp_to_next_level:
 		_level_up()
 

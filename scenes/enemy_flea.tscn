@@ -1,23 +1,112 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhs788abck0v4"]
+[gd_scene load_steps=16 format=3 uid="uid://dhs788abck0v4"]
 
 [ext_resource type="Script" uid="uid://dtdoqa5hud436" path="res://enemies/enemy_flea.gd" id="1_h17bh"]
+[ext_resource type="Texture2D" uid="uid://be0bxosdjjf7v" path="res://enemies/Untitled_Artwork 1.png" id="2_2m6gx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mkyue"]
-radius = 22.203604
+radius = 8.0
 
-[sub_resource type="Gradient" id="Gradient_fpxyv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2m6gx"]
+atlas = ExtResource("2_2m6gx")
+region = Rect2(41, 450, 41, 30)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_lkcdx"]
-gradient = SubResource("Gradient_fpxyv")
-fill_to = Vector2(0.71495324, 0.26635513)
+[sub_resource type="AtlasTexture" id="AtlasTexture_o63dd"]
+atlas = ExtResource("2_2m6gx")
+region = Rect2(82, 450, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tnjf"]
+atlas = ExtResource("2_2m6gx")
+region = Rect2(123, 450, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3u8hs"]
+atlas = ExtResource("2_2m6gx")
+region = Rect2(164, 450, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rm43"]
+atlas = ExtResource("2_2m6gx")
+region = Rect2(0, 300, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mosce"]
+atlas = ExtResource("2_2m6gx")
+region = Rect2(41, 300, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2f1vm"]
+atlas = ExtResource("2_2m6gx")
+region = Rect2(82, 300, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8416q"]
+atlas = ExtResource("2_2m6gx")
+region = Rect2(123, 300, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4tdv"]
+atlas = ExtResource("2_2m6gx")
+region = Rect2(164, 300, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkohw"]
+atlas = ExtResource("2_2m6gx")
+region = Rect2(205, 300, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_si5rg"]
+atlas = ExtResource("2_2m6gx")
+region = Rect2(246, 300, 41, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o63dd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2m6gx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o63dd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tnjf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3u8hs")
+}],
+"loop": false,
+"name": &"flea_death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rm43")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mosce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2f1vm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8416q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4tdv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkohw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_si5rg")
+}],
+"loop": true,
+"name": &"flea_jump",
+"speed": 5.0
+}]
 
 [node name="EnemyFlea" type="CharacterBody2D"]
 script = ExtResource("1_h17bh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_mkyue")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1, 2)
-scale = Vector2(0.46875, 0.484375)
-texture = SubResource("GradientTexture2D_lkcdx")
+[node name="flea_animation" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -0.99999976)
+scale = Vector2(1.3123095, 1.1044271)
+sprite_frames = SubResource("SpriteFrames_o63dd")
+animation = &"flea_death"
+frame = 3
+frame_progress = 1.0

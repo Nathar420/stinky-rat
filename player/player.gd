@@ -8,6 +8,8 @@ extends CharacterBody2D
 
 @onready var animation: AnimatedSprite2D = $rat_animation
 
+
+
 var is_invulnerable: bool = false
 
 func _ready() -> void:
@@ -84,3 +86,26 @@ func _on_stat_changed(stat_name: String, _old_value, new_value) -> void:
 
 func _on_level_up(new_level: int) -> void:
 	print("Level up! Now level ", new_level)
+	
+	var level_up_ui = get_tree().get_first_node_in_group("level_up_ui")
+	print("level_up_ui exists: ", level_up_ui != null)
+	
+	if level_up_ui:
+		print("Calling show_upgrades...")
+		level_up_ui.show_upgrades(stats)
+		level_up_ui.upgrade_chosen.connect(_on_upgrade_chosen)
+	else:
+		print("ERROR: level_up_ui not found in group!")
+		
+func _on_upgrade_chosen(item: ItemData) -> void:
+	print("Chose upgrade: ", item.display_name)
+	
+	stats.weapon_levels[item.id] = stats.weapon_levels.get(item.id, 0) + 1
+	
+	match item.id:
+		"speed_boost":
+			stats.increase_movement_speed(0.25)
+		"max_health":
+			stats.increase_max_health(20)
+		"ricochet", "explosion", "sword", "spoon":
+			print("Weapon upgrade: ", item.id, " - needs ability implementation")

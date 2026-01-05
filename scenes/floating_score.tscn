@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhu4vg68yg1tr"]
+
+[ext_resource type="Script" uid="uid://c22jyq1dpdbm3" path="res://ui/floating_score.gd" id="1_akbw8"]
+[ext_resource type="FontFile" uid="uid://dmebi7ig6ljst" path="res://poco/Poco.ttf" id="2_m3meo"]
+
+[sub_resource type="Theme" id="Theme_m3meo"]
+default_font = ExtResource("2_m3meo")
+default_font_size = 24
+
+[node name="FloatingScore" type="Node2D"]
+script = ExtResource("1_akbw8")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -14.0
+offset_right = 20.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_m3meo")
+theme_override_colors/font_color = Color(0.9877085, 0.41817755, 0.073067464, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_m3meo")
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1

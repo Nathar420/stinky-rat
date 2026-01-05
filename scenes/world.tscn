@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bawmdb64ufyqn"]
+[gd_scene load_steps=11 format=3 uid="uid://bawmdb64ufyqn"]
 
 [ext_resource type="PackedScene" uid="uid://b62lvo1x4606q" path="res://player/player.tscn" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://dhs788abck0v4" path="res://scenes/enemy_flea.tscn" id="2_rwgxs"]
 [ext_resource type="Script" uid="uid://ddsbocwsguvvu" path="res://enemies/enemy_spawner.gd" id="3_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://i2qg3t6oe36a" path="res://scenes/xp_drop.tscn" id="4_qfnet"]
+[ext_resource type="PackedScene" uid="uid://bsvf86ubeo8rl" path="res://scenes/health_pickup.tscn" id="5_i7141"]
+[ext_resource type="PackedScene" uid="uid://b1kev1vdrmvxr" path="res://scenes/gold_pickup.tscn" id="6_4mrxx"]
+[ext_resource type="PackedScene" uid="uid://bhu4vg68yg1tr" path="res://scenes/floating_score.tscn" id="7_i7141"]
+[ext_resource type="PackedScene" uid="uid://d3m3qpbtb01bc" path="res://scenes/game_ui.tscn" id="8_4mrxx"]
+[ext_resource type="Script" uid="uid://dgq4x58djugab" path="res://resources/items/item_database.gd" id="9_7r4gi"]
+[ext_resource type="PackedScene" uid="uid://cb37fiuof4ypf" path="res://level_up_ui.tscn" id="10_w7kh3"]
 
 [node name="World" type="Node2D"]
 
@@ -16,3 +23,14 @@ position = Vector2(246, 71)
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource("3_4wyf3")
 enemy_scene = ExtResource("2_rwgxs")
+xp_drop_scene = ExtResource("4_qfnet")
+health_drop_scene = ExtResource("5_i7141")
+gold_drop_scene = ExtResource("6_4mrxx")
+floating_score_scene = ExtResource("7_i7141")
+
+[node name="GameUI" parent="." instance=ExtResource("8_4mrxx")]
+
+[node name="itemDatabase" type="Node" parent="." groups=["item_database"]]
+script = ExtResource("9_7r4gi")
+
+[node name="LevelUpUi" parent="." groups=["level_up_ui"] instance=ExtResource("10_w7kh3")]
