@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7wjslcl0ihv"]
+
+[ext_resource type="Script" uid="uid://dd3hx5q7dv7rs" path="res://abilities/weapons/explosion_ability.gd" id="1_3eayt"]
+[ext_resource type="PackedScene" uid="uid://ds1vlhm2o74xp" path="res://projectiles/explosion.tscn" id="2_ncket"]
+
+[node name="ExplosionAbility" type="Node2D"]
+script = ExtResource("1_3eayt")
+explosion_scene = ExtResource("2_ncket")

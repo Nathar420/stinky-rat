@@ -1,0 +1,68 @@
+[gd_scene load_steps=14 format=3 uid="uid://ds1vlhm2o74xp"]
+
+[ext_resource type="Script" uid="uid://bxmsm0miety8" path="res://projectiles/explosion.gd" id="1_afgkd"]
+[ext_resource type="Texture2D" uid="uid://cmidv6vtqrwyf" path="res://projectiles/explosionsprites/Nuclear_explosion1.png" id="1_tcm4q"]
+[ext_resource type="Texture2D" uid="uid://dd6h2x33stsjh" path="res://projectiles/explosionsprites/Nuclear_explosion2.png" id="2_afgkd"]
+[ext_resource type="Texture2D" uid="uid://bw5s5v8y724rl" path="res://projectiles/explosionsprites/Nuclear_explosion3.png" id="3_wohha"]
+[ext_resource type="Texture2D" uid="uid://cvuqxdbv7cxhe" path="res://projectiles/explosionsprites/Nuclear_explosion4.png" id="4_enld1"]
+[ext_resource type="Texture2D" uid="uid://c0jkcvobvk43s" path="res://projectiles/explosionsprites/Nuclear_explosion5.png" id="5_u51p8"]
+[ext_resource type="Texture2D" uid="uid://c26oi8pf61gsa" path="res://projectiles/explosionsprites/Nuclear_explosion6.png" id="6_vahn8"]
+[ext_resource type="Texture2D" uid="uid://lh7cxo5c843w" path="res://projectiles/explosionsprites/Nuclear_explosion7.png" id="7_mkund"]
+[ext_resource type="Texture2D" uid="uid://blakgwgx54mod" path="res://projectiles/explosionsprites/Nuclear_explosion8.png" id="8_5ii3u"]
+[ext_resource type="Texture2D" uid="uid://d358qlg3qnf02" path="res://projectiles/explosionsprites/Nuclear_explosion9.png" id="9_kgxbq"]
+[ext_resource type="Texture2D" uid="uid://cgfw7ob2gf7on" path="res://projectiles/explosionsprites/Nuclear_explosion10.png" id="10_m135l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nnth5"]
+radius = 70.256676
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1cbhc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tcm4q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_afgkd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wohha")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_enld1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_u51p8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vahn8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_mkund")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5ii3u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_kgxbq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_m135l")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Explosion" type="Area2D"]
+script = ExtResource("1_afgkd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nnth5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.41179675, 0.8392508, 0.6515947, 1)
+position = Vector2(-1, 6)
+scale = Vector2(0.80859375, 0.828125)
+sprite_frames = SubResource("SpriteFrames_1cbhc")
+frame = 9
+frame_progress = 1.0

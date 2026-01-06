@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://b62lvo1x4606q"]
+[gd_scene load_steps=34 format=3 uid="uid://b62lvo1x4606q"]
 
 [ext_resource type="Script" uid="uid://byhqvf6snqm1y" path="res://player/player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://ba1b5dojprabq" path="res://player/Rat sprites.png" id="2_onrkg"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bhsy7bm6qnu1a" path="res://managers/ability_manager.gd" id="4_sweqy"]
 [ext_resource type="PackedScene" uid="uid://d3eieij8iep6v" path="res://scenes/basic_gun.tscn" id="5_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://c4qga78ih5q7y" path="res://abilities/weapons/ricochet_gun.tscn" id="6_g6k8r"]
+[ext_resource type="PackedScene" uid="uid://b7wjslcl0ihv" path="res://explosion_ability.tscn" id="7_boad6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 
@@ -226,3 +227,5 @@ script = ExtResource("4_sweqy")
 [node name="BasicGun" parent="AbilityManager" instance=ExtResource("5_qjkh3")]
 
 [node name="RicochetGun" parent="AbilityManager" instance=ExtResource("6_g6k8r")]
+
+[node name="ExplosionAbility" parent="AbilityManager" instance=ExtResource("7_boad6")]
