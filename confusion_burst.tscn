@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwlepf110xpes"]
+
+[ext_resource type="Script" uid="uid://c33j3jma5ofuj" path="res://projectiles/confusion_burst.gd" id="1_x3pq8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s40mf"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x3pq8"]
+
+[node name="ConfusionBurst" type="Area2D"]
+script = ExtResource("1_x3pq8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s40mf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.7508163, 0.40606013, 0.85385925, 1)
+texture = SubResource("NoiseTexture2D_x3pq8")

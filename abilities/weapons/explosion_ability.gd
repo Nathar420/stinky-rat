@@ -7,7 +7,7 @@ extends BaseAbility
 
 func _on_initialized() -> void:
 	ability_name = "Explosion Flask"
-	base_cooldown = 3.0
+	base_cooldown = 3.5
 
 func _execute_ability() -> void:
 	var best_target = _find_best_explosion_target()

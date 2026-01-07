@@ -14,24 +14,25 @@ var is_invulnerable: bool = false
 
 func _ready() -> void:
 	add_to_group("player")
-	
-	# Initialize managers
 	ability_manager.initialize(self)
 	stats.stat_changed.connect(_on_stat_changed)
 	stats.level_up.connect(_on_level_up)
 	
-	# Register and unlock basic gun
 	var basic_gun = $AbilityManager/BasicGun
 	ability_manager.register_ability("basic_gun", basic_gun)
 	ability_manager.unlock_ability("basic_gun")
-	# Register ricochet (but don't unlock yet)
+	
 	var ricochet_gun = $AbilityManager/RicochetGun
 	ability_manager.register_ability("ricochet", ricochet_gun)
+	
 	var explosion_ability = $AbilityManager/ExplosionAbility
 	ability_manager.register_ability("explosion", explosion_ability)
-	# Connect to stats signals
-	stats.stat_changed.connect(_on_stat_changed)
-	stats.level_up.connect(_on_level_up)
+	
+	var confusion_spoon = $AbilityManager/ConfusionSpoon
+	ability_manager.register_ability("spoon", confusion_spoon)
+	
+	var sword_ability = $AbilityManager/SwordAbility
+	ability_manager.register_ability("sword", sword_ability)
 
 func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
@@ -121,5 +122,13 @@ func _on_upgrade_chosen(item: ItemData) -> void:
 				ability_manager.level_up_ability("explosion")
 			else:
 				ability_manager.unlock_ability("explosion")
-		"sword", "spoon":
-			print("Weapon upgrade: ", item.id, " - needs ability implementation")
+		"spoon":
+			if ability_manager.has_ability("spoon"):
+				ability_manager.level_up_ability("spoon")
+			else:
+				ability_manager.unlock_ability("spoon")
+		"sword":
+			if ability_manager.has_ability("sword"):
+				ability_manager.level_up_ability("sword")
+			else:
+				ability_manager.unlock_ability("sword")
