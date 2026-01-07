@@ -83,8 +83,20 @@ func _start_invulnerability() -> void:
 
 func _die() -> void:
 	print("Player died!")
-	queue_free()
-	# TODO: Add death screen/restart logic
+	
+	var game_over_ui = get_tree().get_first_node_in_group("game_over_ui")
+	
+	if game_over_ui:
+		var survival_time = 0.0
+		
+		var world = get_tree().current_scene
+		if world and world.has_node("GameUI"):
+			var game_ui = world.get_node("GameUI")
+			survival_time = game_ui.game_time
+		
+		game_over_ui.show_game_over(stats, survival_time)
+	else:
+		push_error("Game Over UI not found!")
 
 func _on_stat_changed(stat_name: String, _old_value, new_value) -> void:
 	print("Stat changed: ", stat_name, " = ", new_value)
