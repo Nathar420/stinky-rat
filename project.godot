@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Stinky Rat Reborn"
-run/main_scene="uid://bawmdb64ufyqn"
+run/main_scene="uid://c46u7p8xa2v1a"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
