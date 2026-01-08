@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://be4o6fnscja2n"]
 
 [ext_resource type="Script" uid="uid://dy7vicbe4ydp4" path="res://abilities/weapons/confusion_spoon.gd" id="1_73jik"]
-[ext_resource type="PackedScene" uid="uid://cwlepf110xpes" path="res://confusion_burst.tscn" id="2_y162b"]
+[ext_resource type="PackedScene" uid="uid://cwlepf110xpes" path="res://projectiles/confusion_burst.tscn" id="2_y162b"]
 
 [node name="ConfusionSpoon" type="Node2D"]
 script = ExtResource("1_73jik")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bawmdb64ufyqn"]
+[gd_scene load_steps=13 format=3 uid="uid://bawmdb64ufyqn"]
 
 [ext_resource type="PackedScene" uid="uid://b62lvo1x4606q" path="res://player/player.tscn" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://dhs788abck0v4" path="res://scenes/enemy_flea.tscn" id="2_rwgxs"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dgq4x58djugab" path="res://resources/items/item_database.gd" id="9_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://cb37fiuof4ypf" path="res://ui/level_up_ui.tscn" id="10_w7kh3"]
 [ext_resource type="PackedScene" uid="uid://cn7wb8x04pad5" path="res://game_over_ui.tscn" id="11_e3hyu"]
+[ext_resource type="PackedScene" uid="uid://cpij5k01501pi" path="res://pause_menu.tscn" id="12_q5onr"]
 
 [node name="World" type="Node2D"]
 
@@ -37,3 +38,5 @@ script = ExtResource("9_7r4gi")
 [node name="LevelUpUi" parent="." groups=["level_up_ui"] instance=ExtResource("10_w7kh3")]
 
 [node name="GameOverUI" parent="." groups=["game_over_ui", "game_ui"] instance=ExtResource("11_e3hyu")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("12_q5onr")]
