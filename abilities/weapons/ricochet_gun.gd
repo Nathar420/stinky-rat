@@ -56,4 +56,9 @@ func _find_nearest_enemy() -> Node2D:
 
 func _on_level_up() -> void:
 	projectiles_per_shot += 1
-	print("Ricochet Gun leveled up! Now shoots ", projectiles_per_shot, " projectiles with ", bounces_per_projectile, " bounces each")
+	
+	# Increase bounces, but cap at 7
+	if bounces_per_projectile < 7:
+		bounces_per_projectile += 1
+	
+	print("Ricochet Gun leveled up! Projectiles: ", projectiles_per_shot, " Bounces: ", bounces_per_projectile)

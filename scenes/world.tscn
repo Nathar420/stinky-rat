@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bawmdb64ufyqn"]
+[gd_scene load_steps=15 format=3 uid="uid://bawmdb64ufyqn"]
 
 [ext_resource type="PackedScene" uid="uid://b62lvo1x4606q" path="res://player/player.tscn" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://dhs788abck0v4" path="res://scenes/enemy_flea.tscn" id="2_rwgxs"]
@@ -8,10 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://b1kev1vdrmvxr" path="res://scenes/gold_pickup.tscn" id="6_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://bhu4vg68yg1tr" path="res://scenes/floating_score.tscn" id="7_i7141"]
 [ext_resource type="PackedScene" uid="uid://d3m3qpbtb01bc" path="res://scenes/game_ui.tscn" id="8_4mrxx"]
+[ext_resource type="PackedScene" uid="uid://clpk8o5fpoaw0" path="res://loot_chest.tscn" id="8_jhx03"]
 [ext_resource type="Script" uid="uid://dgq4x58djugab" path="res://resources/items/item_database.gd" id="9_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://cb37fiuof4ypf" path="res://ui/level_up_ui.tscn" id="10_w7kh3"]
-[ext_resource type="PackedScene" uid="uid://cn7wb8x04pad5" path="res://game_over_ui.tscn" id="11_e3hyu"]
-[ext_resource type="PackedScene" uid="uid://cpij5k01501pi" path="res://pause_menu.tscn" id="12_q5onr"]
+[ext_resource type="PackedScene" uid="uid://cn7wb8x04pad5" path="res://ui/game_over_ui.tscn" id="11_e3hyu"]
+[ext_resource type="PackedScene" uid="uid://cpij5k01501pi" path="res://ui/pause_menu.tscn" id="12_q5onr"]
+[ext_resource type="PackedScene" uid="uid://dd6jajox32qgs" path="res://scenes/loot_reveal_ui.tscn" id="14_o8fc1"]
 
 [node name="World" type="Node2D"]
 
@@ -29,6 +31,7 @@ xp_drop_scene = ExtResource("4_qfnet")
 health_drop_scene = ExtResource("5_i7141")
 gold_drop_scene = ExtResource("6_4mrxx")
 floating_score_scene = ExtResource("7_i7141")
+loot_chest_scene = ExtResource("8_jhx03")
 
 [node name="GameUI" parent="." instance=ExtResource("8_4mrxx")]
 
@@ -40,3 +43,5 @@ script = ExtResource("9_7r4gi")
 [node name="GameOverUI" parent="." groups=["game_over_ui", "game_ui"] instance=ExtResource("11_e3hyu")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("12_q5onr")]
+
+[node name="LootRevealUI" parent="." groups=["loot_reveal_ui"] instance=ExtResource("14_o8fc1")]

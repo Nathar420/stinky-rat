@@ -1,6 +1,24 @@
 class_name ItemDatabase
 extends Node
 
+
+enum Rarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY }
+
+var rarity_weights = {
+	Rarity.COMMON: 50,
+	Rarity.UNCOMMON: 30,
+	Rarity.RARE: 15,
+	Rarity.EPIC: 4,
+	Rarity.LEGENDARY: 1
+}
+
+var rarity_colors = {
+	Rarity.COMMON: Color(0.8, 0.8, 0.8),
+	Rarity.UNCOMMON: Color(0.2, 0.8, 0.2),
+	Rarity.RARE: Color(0.3, 0.5, 1.0),
+	Rarity.EPIC: Color(0.7, 0.3, 1.0),
+	Rarity.LEGENDARY: Color(1.0, 0.8, 0.0)
+}
 var all_items: Array[ItemData] = []
 
 func _ready() -> void:
@@ -59,6 +77,20 @@ func _initialize_items() -> void:
 	health.max_level = 10
 	all_items.append(health)
 
+func get_random_chest_item(stats: StatsManager) -> ItemData:
+	var available: Array[ItemData] = []
+	
+	for item in all_items:
+		var current_level = stats.weapon_levels.get(item.id, 0)
+		if current_level < item.max_level:
+			available.append(item)
+	
+	if available.is_empty():
+		return null
+	
+	# For now just pick randomly, you can add rarity weighting later
+	return available[randi() % available.size()]
+	
 func get_random_upgrades(count: int, stats: StatsManager) -> Array[ItemData]:
 	var available: Array[ItemData] = []
 	

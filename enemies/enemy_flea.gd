@@ -2,7 +2,7 @@ class_name EnemyFlea
 extends CharacterBody2D
 
 @export var move_speed: float = 150.0
-@export var health: int = 30
+@export var health: int = 20
 @export var contact_damage: int = 10
 @export var score_value: int = 10
 

@@ -6,6 +6,7 @@ extends Area2D
 @export var max_bounces: int = 3
 @export var max_ricochet_distance: float = 400.0
 @export var damage_radius: float = 40.0
+@export var damage: int = 25
 
 var direction: Vector2 = Vector2.ZERO
 var life_timer: float = 0.0
@@ -39,7 +40,7 @@ func _on_body_entered(body: Node2D) -> void:
 			return
 		
 		if body.has_method("take_damage"):
-			body.take_damage(10)
+			body.take_damage(damage)
 			hit_enemies.append(body)
 		
 		if bounces_remaining > 0:
@@ -67,17 +68,28 @@ func _ricochet_to_next_enemy() -> void:
 		queue_free()
 		return
 	
-	var nearest: Node2D = null
-	var nearest_distance: float = INF
+	# Add randomness - pick from closest 3-5 enemies instead of just nearest
+	var target: Node2D = null
 	
-	for enemy in valid_targets:
-		var distance = global_position.distance_to(enemy.global_position)
-		if distance < nearest_distance:
-			nearest_distance = distance
-			nearest = enemy
+	if valid_targets.size() <= 2:
+		# If only 1-2 enemies, just pick randomly
+		target = valid_targets[randi() % valid_targets.size()]
+	else:
+		# Sort by distance
+		var sorted_enemies = []
+		for enemy in valid_targets:
+			var distance = global_position.distance_to(enemy.global_position)
+			sorted_enemies.append({"enemy": enemy, "distance": distance})
+		
+		sorted_enemies.sort_custom(func(a, b): return a.distance < b.distance)
+		
+		# Pick randomly from closest 5 enemies
+		var pool_size = min(5, sorted_enemies.size())
+		var random_index = randi() % pool_size
+		target = sorted_enemies[random_index].enemy
 	
-	if nearest:
-		direction = global_position.direction_to(nearest.global_position)
+	if target:
+		direction = global_position.direction_to(target.global_position)
 
 func _check_nearby_enemies() -> void:
 	var enemies = get_tree().get_nodes_in_group("enemies")

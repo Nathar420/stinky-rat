@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://clpk8o5fpoaw0"]
+
+[ext_resource type="Script" uid="uid://br65rf2hf3y21" path="res://pickups/loot_chest.gd" id="1_ecd5l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tcjxa"]
+
+[sub_resource type="Gradient" id="Gradient_sxw2o"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_chhtt"]
+gradient = SubResource("Gradient_sxw2o")
+fill_from = Vector2(0.49532712, 0.093457945)
+
+[node name="LootChest" type="Area2D"]
+script = ExtResource("1_ecd5l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tcjxa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_chhtt")
+
+[node name="CostLabel" type="Label" parent="Sprite2D"]
+offset_left = -20.0
+offset_top = -59.0
+offset_right = 20.0
+offset_bottom = -36.0
+size_flags_horizontal = 4
+text = "10"
