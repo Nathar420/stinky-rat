@@ -23,14 +23,16 @@ func _shoot_ricochet(target: Node2D) -> void:
 	
 	var base_direction = player.global_position.direction_to(target.global_position)
 	
-	for i in range(projectiles_per_shot):
+	var total_projectiles = projectiles_per_shot + player.stats.bonus_projectile_count
+	
+	for i in range(total_projectiles):
 		var projectile = projectile_scene.instantiate()
 		projectile.global_position = player.global_position
 		
 		var spread_angle = 0.0
-		if projectiles_per_shot > 1:
+		if total_projectiles > 1:
 			var total_spread = 0.3
-			spread_angle = -total_spread / 2 + (total_spread / (projectiles_per_shot - 1)) * i
+			spread_angle = -total_spread / 2 + (total_spread / (total_projectiles - 1)) * i
 		
 		projectile.direction = base_direction.rotated(spread_angle)
 		projectile.max_bounces = bounces_per_projectile

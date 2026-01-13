@@ -120,10 +120,30 @@ func _on_upgrade_chosen(item: ItemData) -> void:
 	stats.weapon_levels[item.id] = stats.weapon_levels.get(item.id, 0) + 1
 	
 	match item.id:
+		"basic_gun":
+			if ability_manager.has_ability("basic_gun"):
+				ability_manager.level_up_ability("basic_gun")
+			else:
+				# Already unlocked at start, just level it up
+				ability_manager.level_up_ability("basic_gun")
+		"projectile_count":
+			stats.increase_projectile_count(1)
 		"speed_boost":
 			stats.increase_movement_speed(0.25)
 		"max_health":
 			stats.increase_max_health(20)
+		"damage_boost":
+			stats.increase_damage(0.2)
+		"cooldown_reduction":
+			stats.reduce_cooldown(0.1)
+		"pickup_range":
+			stats.increase_pickup_range(0.3)
+		"projectile_speed":
+			stats.increase_projectile_speed(0.15)
+		"area_size":
+			stats.increase_area_size(0.15)
+		"armor":
+			stats.add_armor(0.1)
 		"ricochet":
 			if ability_manager.has_ability("ricochet"):
 				ability_manager.level_up_ability("ricochet")

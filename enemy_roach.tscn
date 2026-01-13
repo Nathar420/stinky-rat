@@ -73,9 +73,10 @@ script = ExtResource("1_saq4a")
 shape = SubResource("CircleShape2D_saq4a")
 
 [node name="roach_animation" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(4, -10.25)
+scale = Vector2(1.2, 1.0957447)
 sprite_frames = SubResource("SpriteFrames_jt0ff")
-frame_progress = 0.5254663
+frame_progress = 0.7885855
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2

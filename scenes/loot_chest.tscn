@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://br65rf2hf3y21" path="res://pickups/loot_chest.gd" id="1_ecd5l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tcjxa"]
+radius = 18.248287
 
 [sub_resource type="Gradient" id="Gradient_sxw2o"]
 
@@ -17,6 +18,8 @@ script = ExtResource("1_ecd5l")
 shape = SubResource("CircleShape2D_tcjxa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.999998, 1.9073486e-06)
+scale = Vector2(0.40625, 0.4375)
 texture = SubResource("GradientTexture2D_chhtt")
 
 [node name="CostLabel" type="Label" parent="Sprite2D"]

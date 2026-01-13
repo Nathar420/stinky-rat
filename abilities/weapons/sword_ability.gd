@@ -33,7 +33,9 @@ func _perform_sword_attacks() -> void:
 		push_error("SwordAbility: No sword instance!")
 		return
 	
-	for i in range(swings_per_use):
+	var total_swings = swings_per_use + player.stats.bonus_projectile_count
+	
+	for i in range(total_swings):
 		if sword_instance and is_instance_valid(sword_instance):
 			var swing_angle = facing_direction.angle()
 			sword_instance.start_swing(swing_angle)

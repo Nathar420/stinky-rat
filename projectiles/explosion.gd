@@ -37,9 +37,13 @@ func _damage_enemies() -> void:
 		if not is_instance_valid(enemy):
 			continue
 		
-		var distance = global_position.distance_to(enemy.global_position)
+		# Cache the position in case enemy dies during this frame
+		var enemy_pos = enemy.global_position
+		var distance = global_position.distance_to(enemy_pos)
+		
 		if distance <= explosion_radius:
-			if enemy.has_method("take_damage"):
+			# Check validity again right before dealing damage
+			if is_instance_valid(enemy) and enemy.has_method("take_damage"):
 				enemy.take_damage(damage)
 				hit_count += 1
 	

@@ -28,6 +28,14 @@ func _initialize_items() -> void:
 	all_items.clear()
 	
 	# WEAPONS
+	var basic_gun = ItemData.new()
+	basic_gun.id = "basic_gun"
+	basic_gun.display_name = "Upgraded Slingshot"
+	basic_gun.description = "Fire more projectiles from your basic weapon"
+	basic_gun.item_type = ItemData.ItemType.WEAPON
+	basic_gun.max_level = 10
+	all_items.append(basic_gun)
+	
 	var ricochet = ItemData.new()
 	ricochet.id = "ricochet"
 	ricochet.display_name = "Ricochet Bottle Cap"
@@ -76,11 +84,78 @@ func _initialize_items() -> void:
 	health.item_type = ItemData.ItemType.PASSIVE
 	health.max_level = 10
 	all_items.append(health)
-
+	
+	# CHEST-ONLY PASSIVE ITEMS
+	var damage_boost = ItemData.new()
+	damage_boost.id = "damage_boost"
+	damage_boost.display_name = "Rat Rage"
+	damage_boost.description = "Increases all damage by 20%"
+	damage_boost.item_type = ItemData.ItemType.PASSIVE
+	damage_boost.max_level = 5
+	damage_boost.chest_only = true
+	all_items.append(damage_boost)
+	
+	var cooldown_reduction = ItemData.new()
+	cooldown_reduction.id = "cooldown_reduction"
+	cooldown_reduction.display_name = "Rusty Watch"
+	cooldown_reduction.description = "Reduces all ability cooldowns by 10%"
+	cooldown_reduction.item_type = ItemData.ItemType.PASSIVE
+	cooldown_reduction.max_level = 5
+	cooldown_reduction.chest_only = true
+	all_items.append(cooldown_reduction)
+	
+	var pickup_range = ItemData.new()
+	pickup_range.id = "pickup_range"
+	pickup_range.display_name = "Magnet"
+	pickup_range.description = "Increases pickup range for items by 30%"
+	pickup_range.item_type = ItemData.ItemType.PASSIVE
+	pickup_range.max_level = 5
+	pickup_range.chest_only = true
+	all_items.append(pickup_range)
+	
+	var projectile_speed = ItemData.new()
+	projectile_speed.id = "projectile_speed"
+	projectile_speed.display_name = "Energy Drink"
+	projectile_speed.description = "Increases projectile speed by 15%"
+	projectile_speed.item_type = ItemData.ItemType.PASSIVE
+	projectile_speed.max_level = 5
+	projectile_speed.chest_only = true
+	all_items.append(projectile_speed)
+	
+	var area_size = ItemData.new()
+	area_size.id = "area_size"
+	area_size.display_name = "Magnifying Glass"
+	area_size.description = "Increases area of effect by 15%"
+	area_size.item_type = ItemData.ItemType.PASSIVE
+	area_size.max_level = 5
+	area_size.chest_only = true
+	all_items.append(area_size)
+	
+	var armor = ItemData.new()
+	armor.id = "armor"
+	armor.display_name = "Cardboard Armor"
+	armor.description = "Reduces damage taken by 10%"
+	armor.item_type = ItemData.ItemType.PASSIVE
+	armor.max_level = 5
+	armor.chest_only = true
+	all_items.append(armor)
+	
+	var projectile_count = ItemData.new()
+	projectile_count.id = "projectile_count"
+	projectile_count.display_name = "Split Shot"
+	projectile_count.description = "All weapons fire +1 additional projectile"
+	projectile_count.item_type = ItemData.ItemType.PASSIVE
+	projectile_count.max_level = 5
+	all_items.append(projectile_count)
+	
 func get_random_chest_item(stats: StatsManager) -> ItemData:
 	var available: Array[ItemData] = []
 	
 	for item in all_items:
+		# Only include chest-only items
+		if not item.chest_only:
+			continue
+		
 		var current_level = stats.weapon_levels.get(item.id, 0)
 		if current_level < item.max_level:
 			available.append(item)
@@ -88,13 +163,16 @@ func get_random_chest_item(stats: StatsManager) -> ItemData:
 	if available.is_empty():
 		return null
 	
-	# For now just pick randomly, you can add rarity weighting later
 	return available[randi() % available.size()]
 	
 func get_random_upgrades(count: int, stats: StatsManager) -> Array[ItemData]:
 	var available: Array[ItemData] = []
 	
 	for item in all_items:
+		# Skip chest-only items in level-ups
+		if item.chest_only:
+			continue
+		
 		var current_level = stats.weapon_levels.get(item.id, 0)
 		if current_level < item.max_level:
 			available.append(item)

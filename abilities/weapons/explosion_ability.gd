@@ -19,21 +19,26 @@ func _create_explosions_at(target_position: Vector2) -> void:
 		push_error("ExplosionAbility: No explosion scene assigned!")
 		return
 	
-	# Get list of targets from the cluster
-	var targets = _find_spread_targets_in_cluster(explosions_per_use)
+	var total_explosions = explosions_per_use + player.stats.bonus_projectile_count
+	
+	var targets = _find_spread_targets_in_cluster(total_explosions)
 	
 	if targets.is_empty():
-		# Fallback to original position if no targets
 		var explosion = explosion_scene.instantiate()
 		player.get_parent().add_child(explosion)
 		explosion.global_position = target_position
 		return
 	
-	# Create explosions at each target
 	for i in range(targets.size()):
+		# Check if target is still valid before accessing position
+		if not is_instance_valid(targets[i]):
+			continue
+		
+		var target_pos = targets[i].global_position
+		
 		var explosion = explosion_scene.instantiate()
 		player.get_parent().add_child(explosion)
-		explosion.global_position = targets[i].global_position
+		explosion.global_position = target_pos
 		
 		if i < targets.size() - 1:
 			await get_tree().create_timer(0.2).timeout

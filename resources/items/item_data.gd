@@ -13,3 +13,4 @@ enum ItemType {
 @export var icon: Texture2D
 @export var item_type: ItemType = ItemType.WEAPON
 @export var max_level: int = 10
+@export var chest_only: bool = false
