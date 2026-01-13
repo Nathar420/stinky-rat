@@ -1,0 +1,84 @@
+[gd_scene load_steps=13 format=3 uid="uid://dnvafva6k7237"]
+
+[ext_resource type="Texture2D" uid="uid://be0bxosdjjf7v" path="res://enemies/Untitled_Artwork 1.png" id="1_r0y46"]
+[ext_resource type="Script" uid="uid://6us6lpc4b1a7" path="res://enemies/enemy_roach.gd" id="1_saq4a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_saq4a"]
+radius = 11.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njcvs"]
+atlas = ExtResource("1_r0y46")
+region = Rect2(6, 245, 40, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5gxt"]
+atlas = ExtResource("1_r0y46")
+region = Rect2(46, 245, 40, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4k5a"]
+atlas = ExtResource("1_r0y46")
+region = Rect2(86, 245, 40, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xakx"]
+atlas = ExtResource("1_r0y46")
+region = Rect2(126, 245, 40, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rnml3"]
+atlas = ExtResource("1_r0y46")
+region = Rect2(166, 245, 40, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwmbj"]
+atlas = ExtResource("1_r0y46")
+region = Rect2(206, 245, 40, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjfcb"]
+atlas = ExtResource("1_r0y46")
+region = Rect2(246, 245, 40, 47)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jt0ff"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_njcvs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5gxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n4k5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xakx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rnml3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iwmbj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjfcb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_njcvs"]
+radius = 13.152946
+
+[node name="EnemyRoach" type="CharacterBody2D"]
+script = ExtResource("1_saq4a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_saq4a")
+
+[node name="roach_animation" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_jt0ff")
+frame_progress = 0.5254663
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_njcvs")
