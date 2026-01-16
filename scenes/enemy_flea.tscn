@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://dhs788abck0v4"]
+[gd_scene load_steps=18 format=3 uid="uid://dhs788abck0v4"]
 
 [ext_resource type="Script" uid="uid://dtdoqa5hud436" path="res://enemies/enemy_flea.gd" id="1_h17bh"]
 [ext_resource type="Texture2D" uid="uid://be0bxosdjjf7v" path="res://enemies/Untitled_Artwork 1.png" id="2_2m6gx"]
+[ext_resource type="Material" uid="uid://ccrdgpeurt5m6" path="res://materials/outline_flash_material.tres" id="2_4rm43"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mkyue"]
-radius = 11.0
+radius = 14.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2m6gx"]
 atlas = ExtResource("2_2m6gx")
@@ -97,7 +98,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2m6gx"]
-radius = 9.0
+radius = 12.0415945
 
 [node name="EnemyFlea" type="CharacterBody2D"]
 script = ExtResource("1_h17bh")
@@ -107,11 +108,12 @@ position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_mkyue")
 
 [node name="flea_animation" type="AnimatedSprite2D" parent="."]
-position = Vector2(2, 4)
-scale = Vector2(1.5542824, 1.3963866)
+material = ExtResource("2_4rm43")
+position = Vector2(-11.000001, 1)
+scale = Vector2(1.7039706, 1.5315267)
 sprite_frames = SubResource("SpriteFrames_o63dd")
 animation = &"flea_jump"
-frame_progress = 0.18203463
+frame_progress = 0.383836
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2

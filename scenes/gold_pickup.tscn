@@ -43,7 +43,7 @@ script = ExtResource("1_q34rp")
 shape = SubResource("CircleShape2D_up3q6")
 
 [node name="gold_animation" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, -0.9999999)
-scale = Vector2(0.421875, 0.40624994)
+position = Vector2(2.3841858e-07, 0)
+scale = Vector2(0.5859375, 0.51562494)
 sprite_frames = SubResource("SpriteFrames_pvc0l")
 frame_progress = 0.9007124

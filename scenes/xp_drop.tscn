@@ -35,7 +35,7 @@ script = ExtResource("1_v6faq")
 shape = SubResource("CircleShape2D_fp48k")
 
 [node name="xp_animation" type="AnimatedSprite2D" parent="."]
-position = Vector2(0.99999917, 1.7499995)
-scale = Vector2(0.43749997, 0.45312503)
+position = Vector2(1, 2)
+scale = Vector2(0.5625, 0.59375)
 sprite_frames = SubResource("SpriteFrames_hks1c")
 frame_progress = 0.6843709

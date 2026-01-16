@@ -33,18 +33,27 @@ func _damage_enemies() -> void:
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	var hit_count = 0
 	
+	var player = get_tree().get_first_node_in_group("player")
+	
 	for enemy in enemies:
 		if not is_instance_valid(enemy):
 			continue
 		
-		# Cache the position in case enemy dies during this frame
 		var enemy_pos = enemy.global_position
 		var distance = global_position.distance_to(enemy_pos)
 		
 		if distance <= explosion_radius:
-			# Check validity again right before dealing damage
 			if is_instance_valid(enemy) and enemy.has_method("take_damage"):
-				enemy.take_damage(damage)
+				if player and player.has_node("StatsManager"):
+					var damage_result = player.stats.calculate_damage(damage)
+					enemy.take_damage(damage_result.damage, damage_result.is_crit)
+				else:
+					enemy.take_damage(damage, false)
 				hit_count += 1
 	
 	print("Explosion hit ", hit_count, " enemies")
+	var camera = get_viewport().get_camera_2d()
+	if camera and camera.has_method("add_shake"):
+		# More hits = more shake
+		var shake_intensity = 2.0 + (hit_count * 0.3)
+		camera.add_shake(shake_intensity)

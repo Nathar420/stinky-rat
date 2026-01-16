@@ -148,6 +148,24 @@ func _initialize_items() -> void:
 	projectile_count.max_level = 5
 	all_items.append(projectile_count)
 	
+	var crit_chance_item = ItemData.new()
+	crit_chance_item.id = "crit_chance"
+	crit_chance_item.display_name = "Lucky Coin"
+	crit_chance_item.description = "Increases critical hit chance by 10%"
+	crit_chance_item.item_type = ItemData.ItemType.PASSIVE
+	crit_chance_item.max_level = 5
+	crit_chance_item.chest_only = true
+	all_items.append(crit_chance_item)
+	
+	var crit_damage_item = ItemData.new()
+	crit_damage_item.id = "crit_damage"
+	crit_damage_item.display_name = "Sharp Claw"
+	crit_damage_item.description = "Increases critical damage by 25%"
+	crit_damage_item.item_type = ItemData.ItemType.PASSIVE
+	crit_damage_item.max_level = 5
+	crit_damage_item.chest_only = true
+	all_items.append(crit_damage_item)
+	
 func get_random_chest_item(stats: StatsManager) -> ItemData:
 	var available: Array[ItemData] = []
 	

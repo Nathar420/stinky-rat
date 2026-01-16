@@ -117,12 +117,10 @@ func _find_spread_targets_in_cluster(count: int) -> Array:
 	if enemies.is_empty():
 		return []
 	
-	# Find the center of the largest cluster
 	var cluster_center = _find_best_explosion_target()
 	if cluster_center == Vector2.ZERO:
 		return []
 	
-	# Get enemies in that cluster
 	var cluster_radius = 150.0
 	var enemies_in_cluster: Array = []
 	
@@ -136,7 +134,6 @@ func _find_spread_targets_in_cluster(count: int) -> Array:
 	if enemies_in_cluster.is_empty():
 		return []
 	
-	# Sort by how many neighbors each enemy has (prioritize dense areas)
 	var scored_enemies = []
 	for enemy in enemies_in_cluster:
 		var neighbor_count = 0
@@ -147,10 +144,8 @@ func _find_spread_targets_in_cluster(count: int) -> Array:
 				neighbor_count += 1
 		scored_enemies.append({"enemy": enemy, "score": neighbor_count})
 	
-	# Sort by score (most neighbors first)
 	scored_enemies.sort_custom(func(a, b): return a.score > b.score)
 	
-	# Pick targets that are spread apart
 	var min_spacing = 100.0
 	var selected_targets: Array = []
 	
@@ -160,7 +155,6 @@ func _find_spread_targets_in_cluster(count: int) -> Array:
 		
 		var enemy = item.enemy
 		
-		# Check if this enemy is far enough from already selected ones
 		var too_close = false
 		for selected in selected_targets:
 			if enemy.global_position.distance_to(selected.global_position) < min_spacing:
@@ -169,6 +163,16 @@ func _find_spread_targets_in_cluster(count: int) -> Array:
 		
 		if not too_close:
 			selected_targets.append(enemy)
+	
+	# If we didn't find enough spread targets, fill remaining with any available enemies
+	if selected_targets.size() < count:
+		for item in scored_enemies:
+			if selected_targets.size() >= count:
+				break
+			
+			var enemy = item.enemy
+			if enemy not in selected_targets:
+				selected_targets.append(enemy)
 	
 	return selected_targets
 	

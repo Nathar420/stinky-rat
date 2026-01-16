@@ -2,9 +2,9 @@ class_name EnemySpawner
 extends Node2D
 
 # Spawner settings
-@export var spawn_interval: float = 2.5
+@export var spawn_interval: float = 3.5
 @export var min_spawn_interval: float = 0.3
-@export var spawn_decrease_rate: float = 0.01
+@export var spawn_decrease_rate: float = 0.0075
 @export var spawn_distance: float = 600.0
 @export var max_enemies: int = 250
 
@@ -19,6 +19,8 @@ extends Node2D
 @export var gold_drop_scene: PackedScene
 @export var floating_score_scene: PackedScene
 @export var loot_chest_scene: PackedScene
+
+@export var floating_damage_scene: PackedScene
 
 var player: Node2D = null
 var spawn_timer: float = 0.0
@@ -70,6 +72,12 @@ func _spawn_enemies() -> void:
 		enemy.gold_drop_scene = gold_drop_scene
 		enemy.floating_score_scene = floating_score_scene
 		enemy.loot_chest_scene = loot_chest_scene
+		enemy.xp_drop_scene = xp_drop_scene
+		enemy.health_drop_scene = health_drop_scene
+		enemy.gold_drop_scene = gold_drop_scene
+		enemy.floating_score_scene = floating_score_scene
+		enemy.loot_chest_scene = loot_chest_scene
+		enemy.floating_damage_scene = floating_damage_scene
 		
 		# Spawn off-screen around player
 		var angle = randf() * TAU

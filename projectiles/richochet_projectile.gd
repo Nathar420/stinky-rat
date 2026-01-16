@@ -5,7 +5,6 @@ extends Area2D
 @export var lifetime: float = 5.0
 @export var max_bounces: int = 3
 @export var max_ricochet_distance: float = 400.0
-@export var damage_radius: float = 40.0
 @export var damage: int = 25
 
 var direction: Vector2 = Vector2.ZERO
@@ -25,8 +24,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	position += direction * speed * delta
 	
-	_check_nearby_enemies()
-	
 	if has_node("bottlecap_animation"):
 		$bottlecap_animation.rotation += delta * 10.0
 	
@@ -35,18 +32,28 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("enemies"):
-		if body in hit_enemies:
-			return
-		
-		if body.has_method("take_damage"):
-			body.take_damage(damage)
-			hit_enemies.append(body)
-		
-		if bounces_remaining > 0:
-			_ricochet_to_next_enemy()
-		else:
-			queue_free()
+	if not body.is_in_group("enemies"):
+		return
+	
+	if body in hit_enemies:
+		return
+	
+	if not body.has_method("take_damage"):
+		return
+	
+	var player = get_tree().get_first_node_in_group("player")
+	if player and player.has_node("StatsManager"):
+		var damage_result = player.stats.calculate_damage(damage)
+		body.take_damage(damage_result.damage, damage_result.is_crit)
+	else:
+		body.take_damage(damage, false)
+	
+	hit_enemies.append(body)
+	
+	if bounces_remaining > 0:
+		_ricochet_to_next_enemy()
+	else:
+		queue_free()
 
 func _ricochet_to_next_enemy() -> void:
 	bounces_remaining -= 1
@@ -68,14 +75,11 @@ func _ricochet_to_next_enemy() -> void:
 		queue_free()
 		return
 	
-	# Add randomness - pick from closest 3-5 enemies instead of just nearest
 	var target: Node2D = null
 	
 	if valid_targets.size() <= 2:
-		# If only 1-2 enemies, just pick randomly
 		target = valid_targets[randi() % valid_targets.size()]
 	else:
-		# Sort by distance
 		var sorted_enemies = []
 		for enemy in valid_targets:
 			var distance = global_position.distance_to(enemy.global_position)
@@ -83,32 +87,9 @@ func _ricochet_to_next_enemy() -> void:
 		
 		sorted_enemies.sort_custom(func(a, b): return a.distance < b.distance)
 		
-		# Pick randomly from closest 5 enemies
 		var pool_size = min(5, sorted_enemies.size())
 		var random_index = randi() % pool_size
 		target = sorted_enemies[random_index].enemy
 	
 	if target:
 		direction = global_position.direction_to(target.global_position)
-
-func _check_nearby_enemies() -> void:
-	var enemies = get_tree().get_nodes_in_group("enemies")
-	
-	for enemy in enemies:
-		if enemy in hit_enemies:
-			continue
-		if not is_instance_valid(enemy):
-			continue
-		
-		var distance = global_position.distance_to(enemy.global_position)
-		
-		if distance <= damage_radius:
-			if enemy.has_method("take_damage"):
-				enemy.take_damage(10)
-				hit_enemies.append(enemy)
-				
-				if bounces_remaining > 0:
-					_ricochet_to_next_enemy()
-				else:
-					queue_free()
-				return

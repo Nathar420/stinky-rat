@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dnvafva6k7237"]
+[gd_scene load_steps=14 format=3 uid="uid://dnvafva6k7237"]
 
 [ext_resource type="Texture2D" uid="uid://be0bxosdjjf7v" path="res://enemies/Untitled_Artwork 1.png" id="1_r0y46"]
 [ext_resource type="Script" uid="uid://6us6lpc4b1a7" path="res://enemies/enemy_roach.gd" id="1_saq4a"]
+[ext_resource type="Material" uid="uid://ccrdgpeurt5m6" path="res://materials/outline_flash_material.tres" id="2_njcvs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_saq4a"]
 radius = 11.0
@@ -73,8 +74,9 @@ script = ExtResource("1_saq4a")
 shape = SubResource("CircleShape2D_saq4a")
 
 [node name="roach_animation" type="AnimatedSprite2D" parent="."]
-position = Vector2(4, -10.25)
-scale = Vector2(1.2, 1.0957447)
+material = ExtResource("2_njcvs")
+position = Vector2(-3.499998, -17.249998)
+scale = Vector2(1.5749999, 1.393617)
 sprite_frames = SubResource("SpriteFrames_jt0ff")
 frame_progress = 0.7885855
 

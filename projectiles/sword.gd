@@ -43,7 +43,12 @@ func _on_body_entered(body: Node2D) -> void:
 	
 	if body.is_in_group("enemies") and body not in hit_enemies:
 		if body.has_method("take_damage"):
-			body.take_damage(damage)
+			var player = get_tree().get_first_node_in_group("player")
+			if player and player.has_node("StatsManager"):
+				var damage_result = player.stats.calculate_damage(damage)
+				body.take_damage(damage_result.damage, damage_result.is_crit)
+			else:
+				body.take_damage(damage, false)
 			hit_enemies.append(body)
 
 

@@ -11,9 +11,17 @@ extends CharacterBody2D
 
 
 var is_invulnerable: bool = false
+var knockback_velocity: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	add_to_group("player")
+	# Create unique material copy for player
+	if animation.material:
+		animation.material = animation.material.duplicate()
+	
+	ability_manager.initialize(self)
+	stats.stat_changed.connect(_on_stat_changed)
+	stats.level_up.connect(_on_level_up)
 	ability_manager.initialize(self)
 	stats.stat_changed.connect(_on_stat_changed)
 	stats.level_up.connect(_on_level_up)
@@ -38,6 +46,23 @@ func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
 
 func _handle_movement(_delta: float) -> void:
+	# Apply knockback if active
+	if knockback_velocity.length() > 5.0:
+		velocity = knockback_velocity
+		knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 0.15)
+		
+		# Still play animations during knockback
+		if knockback_velocity.x > 0:
+			animation.flip_h = false
+			animation.play("walk_right")
+		elif knockback_velocity.x < 0:
+			animation.flip_h = true
+			animation.play("walk_left")
+		
+		move_and_slide()
+		return  # Skip normal movement
+	
+	# Normal movement
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	velocity = direction * base_speed * stats.movement_speed_multiplier
 	
@@ -56,11 +81,11 @@ func _handle_movement(_delta: float) -> void:
 			else:
 				animation.play("walk_up")
 	else:
-		animation.play("idle")  # or animation.stop() if you don't have idle
+		animation.play("idle")
 	
 	move_and_slide()
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, from_position: Vector2 = Vector2.ZERO) -> void:
 	if is_invulnerable:
 		return
 	
@@ -70,16 +95,44 @@ func take_damage(amount: int) -> void:
 		_die()
 		return
 	
+	# KNOCKBACK
+	if from_position != Vector2.ZERO:
+		var knockback_direction = (global_position - from_position).normalized()
+		knockback_velocity = knockback_direction * 400.0  # Increased strength
+		print("Player knocked back! Direction: ", knockback_direction, " Velocity: ", knockback_velocity)
+	
 	_start_invulnerability()
+	_flash_damage()
+	
+	# Screen shake
+	var camera = get_viewport().get_camera_2d()
+	if camera and camera.has_method("add_shake"):
+		camera.add_shake(3.0)
+		
+func _flash_damage() -> void:
+	# Get the sprite's material
+	var sprite_material = animation.material as ShaderMaterial
+	if not sprite_material:
+		return
+	
+	# Flash white
+	sprite_material.set_shader_parameter("flash_amount", 1.0)
+	
+	# Fade back to normal
+	var tween = create_tween()
+	tween.tween_method(
+		func(value): sprite_material.set_shader_parameter("flash_amount", value),
+		1.0,
+		0.0,
+		0.2
+	)
 
 func _start_invulnerability() -> void:
 	is_invulnerable = true
-	modulate = Color(1, 0.5, 0.5)
 	
 	await get_tree().create_timer(1.0).timeout
 	
 	is_invulnerable = false
-	modulate = Color.WHITE
 
 func _die() -> void:
 	print("Player died!")
@@ -164,3 +217,7 @@ func _on_upgrade_chosen(item: ItemData) -> void:
 				ability_manager.level_up_ability("sword")
 			else:
 				ability_manager.unlock_ability("sword")
+		"crit_chance":
+			stats.increase_crit_chance(0.10)
+		"crit_damage":
+			stats.increase_crit_multiplier(0.25)

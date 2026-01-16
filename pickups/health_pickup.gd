@@ -3,7 +3,7 @@ extends Area2D
 
 @export var heal_amount: int = 20
 @export var move_speed: float = 200.0
-@export var pickup_range: float = 75.0
+@export var base_pickup_range: float = 75.0
 
 var player: Node2D = null
 var is_moving_to_player: bool = false
@@ -21,9 +21,14 @@ func _physics_process(delta: float) -> void:
 	if player == null:
 		return
 	
+	# Calculate effective pickup range using player's multiplier
+	var effective_range = base_pickup_range
+	if player.has_node("StatsManager"):
+		effective_range *= player.stats.pickup_range_multiplier
+	
 	var distance = global_position.distance_to(player.global_position)
 	
-	if distance < pickup_range:
+	if distance < effective_range:
 		is_moving_to_player = true
 	
 	if is_moving_to_player:

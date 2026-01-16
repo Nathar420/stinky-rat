@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ccrdgpeurt5m6"]
+
+[ext_resource type="Shader" uid="uid://dinkyk4bxembf" path="res://shaders/outline_flash.gdshader" id="1_uhlau"]
+
+[resource]
+shader = ExtResource("1_uhlau")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 0.3850000182875
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_amount = 0.0

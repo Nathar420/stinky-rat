@@ -30,6 +30,8 @@ var pickup_range_multiplier: float = 1.0
 var projectile_speed_multiplier: float = 1.0
 var area_size_multiplier: float = 1.0
 var damage_reduction: float = 0.0
+var crit_chance: float = 0.0
+var crit_multiplier: float = 1.5
 
 func _ready() -> void:
 	current_health = max_health
@@ -91,6 +93,7 @@ func increase_movement_speed(multiplier: float) -> void:
 	
 func increase_damage(multiplier: float) -> void:
 	damage_multiplier += multiplier
+	print("Damage multiplier increased to: ", damage_multiplier)
 	stat_changed.emit("damage", damage_multiplier - multiplier, damage_multiplier)
 
 func reduce_cooldown(multiplier: float) -> void:
@@ -116,3 +119,27 @@ func add_armor(reduction: float) -> void:
 	if damage_reduction > 0.75:  # Cap at 75% reduction
 		damage_reduction = 0.75
 	stat_changed.emit("armor", damage_reduction - reduction, damage_reduction)
+
+func increase_crit_chance(amount: float) -> void:
+	crit_chance += amount
+	if crit_chance > 1.0:
+		crit_chance = 1.0
+	stat_changed.emit("crit_chance", crit_chance - amount, crit_chance)
+
+func increase_crit_multiplier(amount: float) -> void:
+	crit_multiplier += amount
+	stat_changed.emit("crit_multiplier", crit_multiplier - amount, crit_multiplier)
+
+func calculate_damage(base_damage: int) -> Dictionary:
+	var final_damage = int(base_damage * damage_multiplier)
+	var is_crit = randf() < crit_chance
+	
+	if is_crit:
+		final_damage = int(final_damage * crit_multiplier)
+	
+	print("Damage calc: base=", base_damage, " mult=", damage_multiplier, " final=", final_damage, " crit=", is_crit)
+	
+	return {
+		"damage": final_damage,
+		"is_crit": is_crit
+	}

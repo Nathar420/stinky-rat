@@ -17,6 +17,8 @@ extends Node2D
 @export var floating_score_scene: PackedScene
 @export var loot_chest_scene: PackedScene
 
+@export var floating_damage_scene: PackedScene
+
 var player: Node2D = null
 var spawn_timer: float = 0.0
 var enemy_count: int = 0
@@ -63,7 +65,12 @@ func _spawn_enemies() -> void:
 		enemy.gold_drop_scene = gold_drop_scene
 		enemy.floating_score_scene = floating_score_scene
 		enemy.loot_chest_scene = loot_chest_scene
-		
+		enemy.xp_drop_scene = xp_drop_scene
+		enemy.health_drop_scene = health_drop_scene
+		enemy.gold_drop_scene = gold_drop_scene
+		enemy.floating_score_scene = floating_score_scene
+		enemy.loot_chest_scene = loot_chest_scene
+		enemy.floating_damage_scene = floating_damage_scene
 		var angle = randf() * TAU
 		var spawn_pos = player.global_position + Vector2(cos(angle), sin(angle)) * spawn_distance
 		enemy.global_position = spawn_pos

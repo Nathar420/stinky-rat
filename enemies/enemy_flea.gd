@@ -1,6 +1,7 @@
 class_name EnemyFlea
 extends CharacterBody2D
 
+var last_damage_time: float = 0.0
 @export var move_speed: float = 150.0
 @export var health: int = 20
 @export var contact_damage: int = 10
@@ -18,7 +19,7 @@ var health_drop_scene: PackedScene
 var gold_drop_scene: PackedScene
 var loot_chest_scene: PackedScene
 var floating_score_scene: PackedScene
-
+var floating_damage_scene: PackedScene
 var player: Node2D = null
 var is_dying: bool = false
 
@@ -27,21 +28,28 @@ var is_confused: bool = false
 var confusion_timer: float = 0.0
 var target_enemy: Node2D = null
 var retarget_timer: float = 0.0
+var knockback_velocity: Vector2 = Vector2.ZERO
+var is_knocked_back: bool = false 
 
 func _ready() -> void:
 	add_to_group("enemies")
 	
-	# Play animation if exists
+	# Create unique material copy for this enemy
 	if has_node("flea_animation"):
-		$flea_animation.play("flea_jump")
+		var sprite = $flea_animation
+		if sprite.material:
+			sprite.material = sprite.material.duplicate()
+		sprite.play("flea_jump")
 	
-	# Setup collision damage
 	if has_node("Area2D"):
 		$Area2D.body_entered.connect(_on_player_touched)
 
 func _on_player_touched(body: Node2D) -> void:
 	if body.is_in_group("player") and body.has_method("take_damage"):
-		body.take_damage(contact_damage)
+		body.take_damage(contact_damage, global_position)
+	var knockback_direction = global_position.direction_to(body.global_position)
+	knockback_velocity = knockback_direction * 300
+	print("Flea knocked back! Velocity: ", knockback_velocity)
 
 func _physics_process(delta: float) -> void:
 	if player == null or not is_instance_valid(player):
@@ -52,16 +60,19 @@ func _physics_process(delta: float) -> void:
 	if is_dying:
 		return
 	
-	# Get player reference
-	if player == null:
-		player = get_tree().get_first_node_in_group("player")
-	
-	if player == null:
-		return
-	
 	# Skip distant enemies for performance
 	var distance_to_player = global_position.distance_squared_to(player.global_position)
 	if distance_to_player > 1000000:  # ~1000 pixels
+		return
+	
+	# Handle knockback FIRST
+	if knockback_velocity.length() > 5.0:
+		velocity = knockback_velocity
+		knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 0.2)
+		move_and_slide()
+		
+		if has_node("flea_animation"):
+			$flea_animation.flip_h = velocity.x < 0
 		return
 	
 	# Handle confusion
@@ -101,7 +112,7 @@ func _physics_process(delta: float) -> void:
 			var collider = collision.get_collider()
 			if collider.is_in_group("enemies") and collider != self:
 				if collider.has_method("take_damage"):
-					collider.take_damage(health)  # Kill them instantly
+					collider.take_damage(health)
 	
 	# Flip sprite
 	if has_node("flea_animation"):
@@ -124,11 +135,26 @@ func _find_nearest_enemy_in_range() -> Node2D:
 	
 	return nearest
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, is_crit: bool = false) -> void:
 	if is_dying:
 		return
 	
+	var current_time = Time.get_ticks_msec() / 1000.0
+	if current_time - last_damage_time < 0.05:
+		return
+	last_damage_time = current_time
+	
+	print("Flea taking damage: ", amount, " crit: ", is_crit)
+	
 	health -= amount
+	
+	if floating_damage_scene:
+		var damage_number = floating_damage_scene.instantiate()
+		damage_number.global_position = global_position + Vector2(randf_range(-10, 10), -20)
+		if damage_number.has_method("set_damage"):
+			print("Setting damage number to: ", amount)
+			damage_number.set_damage(amount, is_crit)
+		get_parent().add_child(damage_number)
 	
 	if health <= 0:
 		_die()

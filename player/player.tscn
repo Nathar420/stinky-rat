@@ -1,6 +1,7 @@
-[gd_scene load_steps=37 format=3 uid="uid://b62lvo1x4606q"]
+[gd_scene load_steps=38 format=3 uid="uid://b62lvo1x4606q"]
 
 [ext_resource type="Script" uid="uid://byhqvf6snqm1y" path="res://player/player.gd" id="1_4flbx"]
+[ext_resource type="Material" uid="uid://ccrdgpeurt5m6" path="res://materials/outline_flash_material.tres" id="2_2ieo8"]
 [ext_resource type="Texture2D" uid="uid://ba1b5dojprabq" path="res://player/Rat sprites.png" id="2_onrkg"]
 [ext_resource type="Script" uid="uid://deh3mej2v5gpk" path="res://managers/stats_manager.gd" id="3_hqtel"]
 [ext_resource type="Script" uid="uid://bhsy7bm6qnu1a" path="res://managers/ability_manager.gd" id="4_sweqy"]
@@ -12,8 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://b3d5hm53378w0" path="res://projectiles/sword.tscn" id="10_8t03j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
-radius = 19.0
-height = 40.0
+radius = 24.0
+height = 50.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqtel"]
 atlas = ExtResource("2_onrkg")
@@ -219,8 +220,9 @@ script = ExtResource("1_4flbx")
 shape = SubResource("CapsuleShape2D_onrkg")
 
 [node name="rat_animation" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 2)
-scale = Vector2(1.4791666, 1.3958334)
+material = ExtResource("2_2ieo8")
+position = Vector2(4.7683716e-07, -2.3841858e-07)
+scale = Vector2(1.6770834, 1.5469733)
 sprite_frames = SubResource("SpriteFrames_4flbx")
 animation = &"walk_right"
 

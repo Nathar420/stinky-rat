@@ -1,0 +1,96 @@
+[gd_scene load_steps=18 format=3 uid="uid://cxqm8r688boay"]
+
+[ext_resource type="Script" uid="uid://coh6o6cup85ex" path="res://enemies/boss_cat.gd" id="1_jgp28"]
+[ext_resource type="Texture2D" uid="uid://df00uclfc3106" path="res://enemies/boss cat animations/cat_walk_1.png" id="2_81tfk"]
+[ext_resource type="Texture2D" uid="uid://b3f783lsjcgg4" path="res://enemies/boss cat animations/cat_walk_2.png" id="3_03bje"]
+[ext_resource type="Texture2D" uid="uid://jwdb1lw1dp5d" path="res://enemies/boss cat animations/cat_walk_3.png" id="4_ojeu6"]
+[ext_resource type="Texture2D" uid="uid://djom0had4vx12" path="res://enemies/boss cat animations/cat_walk_4.png" id="5_75b6d"]
+[ext_resource type="Texture2D" uid="uid://k5flfrxm46rv" path="res://enemies/boss cat animations/cat_walk_5.png" id="6_pbogb"]
+[ext_resource type="Texture2D" uid="uid://c86kqcxhpejwc" path="res://enemies/boss cat animations/cat_pounce_1.png" id="7_c8c2k"]
+[ext_resource type="Texture2D" uid="uid://djjrlqpv8c6ie" path="res://enemies/boss cat animations/cat_pounce_2.png" id="8_aebbk"]
+[ext_resource type="Texture2D" uid="uid://bt2yc2fa82ghq" path="res://enemies/boss cat animations/cat_pounce_3.png" id="9_kc7lv"]
+[ext_resource type="Texture2D" uid="uid://bfr34i8d62yxy" path="res://enemies/boss cat animations/cat_pounce_4.png" id="10_0h2t5"]
+[ext_resource type="Texture2D" uid="uid://bx4mfl1eq8djs" path="res://enemies/boss cat animations/cat_shake_1.png" id="11_xw2i4"]
+[ext_resource type="Texture2D" uid="uid://dh4p4ualefdcb" path="res://enemies/boss cat animations/cat_shake_2.png" id="12_7we7d"]
+[ext_resource type="Texture2D" uid="uid://lbmf5u6gsnc4" path="res://enemies/boss cat animations/cat_shake_3.png" id="13_ee2fq"]
+[ext_resource type="Texture2D" uid="uid://c8yq5k7ji4t4u" path="res://enemies/boss cat animations/cat_shake_4.png" id="14_35r38"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ugrop"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_81tfk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_03bje")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ojeu6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_75b6d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_pbogb")
+}],
+"loop": true,
+"name": &"cat_walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_c8c2k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_aebbk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_kc7lv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0h2t5")
+}],
+"loop": false,
+"name": &"lunge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_xw2i4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_7we7d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ee2fq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_35r38")
+}],
+"loop": false,
+"name": &"shake",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t5f2s"]
+radius = 44.28318
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s0i5r"]
+radius = 38.013157
+
+[node name="BossCat" type="CharacterBody2D"]
+script = ExtResource("1_jgp28")
+
+[node name="cat_animation" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, 1)
+scale = Vector2(1.6484375, 1.8125)
+sprite_frames = SubResource("SpriteFrames_ugrop")
+animation = &"cat_walk"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_t5f2s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s0i5r")
